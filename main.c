@@ -89,6 +89,6 @@ int exist_date(int day, int month, int year)
 }
 int main()
 {
-    printf("%i",day_of_the_year(30,3,2000));
+    printf("%i",day_of_the_year(31,12,2018));
     return 0;
 }
