@@ -1,5 +1,8 @@
 #include "timelib.h"
 #include <stdio.h>
+#include <stdlib.h>
+
+//Funktion welches errechnet, ob das übergebene Jahr ein Schlatjahr ist
 int is_leap(int year)
 {
     if (year < 1582)
@@ -30,6 +33,7 @@ int is_leap(int year)
     }
 }
 
+//Funktion welches vom übergebenen Datum der wievielte Tag im Jahr errechnet
 int day_of_the_year(int day, int month, int year)
 {
     if(exist_date(day,month,year))
@@ -47,6 +51,7 @@ int day_of_the_year(int day, int month, int year)
 
 }
 
+//Funktion welches die Anzahl an Tage in einem bestimmten Monat zurückgibt mit berücksichtigung der Schaltjahre
 int get_days_for_month(int month, int year)
 {
     int daysForMonth[12]= {31,28,31,30,31,30,31,31,30,31,30,31};
@@ -57,6 +62,7 @@ int get_days_for_month(int month, int year)
     return daysForMonth[month-1];
 }
 
+//Funktion welches überprüft, ob das eingebene Datum gültig ist
 int exist_date(int day, int month, int year)
 {
     if (year <1582 || year> 2400)
@@ -74,4 +80,21 @@ int exist_date(int day, int month, int year)
     }
 
     return 1;
+}
+
+//Funktion die eine Datumseingabe auffordert und dann das Datum liest
+void input_date(int *day, int *month, int *year)
+{
+    do
+    {
+        printf("Bitte ein gueltiges Datum eingeben\n");
+        printf("Tag: ");
+        scanf("%i", day);
+        printf("Monat: ");
+        scanf("%i", month);
+        printf("Jahr: ");
+        scanf("%i", year);
+        fflush(stdin);
+    }
+    while(exist_date(*day, *month, *year) == 0);
 }
