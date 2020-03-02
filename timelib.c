@@ -34,17 +34,17 @@ int is_leap(int year)
 }
 
 //Funktion welches vom übergebenen Datum der wievielte Tag im Jahr errechnet
-int day_of_the_year(int day, int month, int year)
+int day_of_the_year(struct date enteredDate)
 {
-    if(exist_date(day,month,year))
+    if(exist_date(enteredDate))
     {
         int number=0;
         int i;
-        for(i=1;i<month;i++)
+        for(i=1;i<enteredDate.month;i++)
             {
-                number+=get_days_for_month(i,year);
+                number+=get_days_for_month(i,enteredDate.year);
             }
-        number+=day;
+        number+=enteredDate.day;
         return number;
     }
     return -1;
@@ -63,18 +63,18 @@ int get_days_for_month(int month, int year)
 }
 
 //Funktion welches überprüft, ob das eingebene Datum gültig ist
-int exist_date(int day, int month, int year)
+int exist_date(struct date enteredDate)
 {
-    if (year <1582 || year> 2400)
+    if (enteredDate.year <1582 || enteredDate.year> 2400)
     {
         return 0;
     }
 
-    if(day>get_days_for_month(month,year) || day<1)
+    if(enteredDate.day>get_days_for_month(enteredDate.month,enteredDate.year) || enteredDate.day<1)
     {
         return 0;
     }
-    if(month>12 || month< 1)
+    if(enteredDate.month>12 || enteredDate.month< 1)
     {
         return 0;
     }
@@ -82,19 +82,21 @@ int exist_date(int day, int month, int year)
     return 1;
 }
 
-//Funktion die eine Datumseingabe auffordert und dann das Datum liest
-void input_date(int *day, int *month, int *year)
+//Funktion die eine Datumseingabe auffordert
+struct date input_date()
 {
+    struct date enteredDate;
     do
     {
         printf("Bitte ein gueltiges Datum eingeben\n");
         printf("Tag: ");
-        scanf("%i", day);
+        scanf("%i", &enteredDate.day);
         printf("Monat: ");
-        scanf("%i", month);
+        scanf("%i", &enteredDate.month);
         printf("Jahr: ");
-        scanf("%i", year);
+        scanf("%i", &enteredDate.year);
         fflush(stdin);
     }
-    while(exist_date(*day, *month, *year) == 0);
+    while(exist_date(enteredDate) == 0);
+    return enteredDate;
 }

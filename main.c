@@ -9,8 +9,8 @@
 
 int main()
 {
-    int day, month ,year;
-    input_date(&day,&month,&year);
-    printf("%i",day_of_the_year(day,month,year));
+    struct date enteredDate;
+    enteredDate = input_date();
+    printf("%i",day_of_the_year(enteredDate));
     return 0;
 }
